@@ -53,6 +53,11 @@
   flex-direction: column;
 }
 
+.marquee.split .image {
+  width: 100%;
+  margin: 0;
+}
+
 .marquee.split .image img {
   width: 100%;
   height: 100%;
@@ -86,14 +91,18 @@
 .marquee.large {
   display: block;
 }
-
 .marquee.large .foreground {
   padding: var(--spacing-m) 0;
   gap: 0;
 }
 
+.marquee.large .background img{
+  max-height: 259px;
+}
+
 .marquee.large .background picture {
  position: relative;
+  /*max-height: 259px;*/
 }
 
 .marquee.large.dark {
@@ -118,10 +127,7 @@
   margin-bottom: var(--spacing-xs);
 }
 
-.marquee .text .detail-L {
-  order: 1;
-}
-
+.marquee .text .detail-L,
 .marquee .text .heading-XL,
 .marquee .text .heading-XXL {
   margin-bottom: var(--spacing-xs);
@@ -156,7 +162,7 @@
 
 .marquee.large p.action-area {
   order: 2;
-  margin-bottom: var(--spacing-s);;
+  margin-bottom: var(--spacing-s);
 }
 
 .marquee.large .text .body-XL {
@@ -164,9 +170,15 @@
 }
 
 .marquee.large .text .supplemental-text {
-  order: 4;
-  margin-bottom: 0;
+  order: 2;
+  margin-bottom: var(--spacing-s);
   font-weight: 700;
+}
+
+.marquee .image {
+  order: 1;
+  width: var(--grid-container-width); /* 10 grid / 83% */
+  margin: 0 auto;
 }
 
 .marquee .image img {
@@ -180,9 +192,6 @@
   order: 2;
 }
 
-.marquee .image {
-  order: 1;
-}
 
 .marquee.small .text {
   order: 1;
@@ -193,6 +202,7 @@
 }
 
 @media screen and (min-width: 600px) {
+
   .marquee .background .mobileOnly,
   .marquee .background .desktopOnly {
     display: none;
@@ -263,13 +273,11 @@
   }
 
   .marquee .foreground .text {
-    /*flex: 1 1 500px;*/
     max-width: 500px;
   }
 
   .marquee .foreground .image {
-    /*flex: 1 1 600px;*/
-    max-width: 700px;
+    max-width: 600px;
   }
 
   .marquee.quiet.centered .foreground,
@@ -285,6 +293,11 @@
 
   .marquee.small .foreground {
     padding: 0;
+  }
+
+  .marquee .image img {
+    width: 100%;
+    max-width: initial;
   }
 
   .marquee .image img {
@@ -314,6 +327,10 @@
   .marquee.small .image,
   .marquee.large .image {
     order: unset;
+  }
+
+  .marquee.large .background img {
+    max-height: unset;
   }
 
   .marquee.large .background picture {
