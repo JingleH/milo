@@ -1,8 +1,12 @@
 const PROJECT_NAME = 'milo--adobecom';
 const PRODUCTION_DOMAINS = ['milo.adobe.com'];
-const MILO_TEMPLATES = [];
+const MILO_TEMPLATES = [
+  '404',
+];
 const MILO_BLOCKS = [
+  'accordion',
   'adobetv',
+  'aside',
   'caas',
   'card-metadata',
   'chart',
@@ -13,11 +17,14 @@ const MILO_BLOCKS = [
   'footer',
   'gnav',
   'how-to',
+  'icon-block',
   'marquee',
   'media',
+  'merch',
   'modal',
   'quote',
   'section-metadata',
+  'youtube',
   'z-pattern',
 ];
 const AUTO_BLOCKS = [
@@ -26,6 +33,8 @@ const AUTO_BLOCKS = [
   { caas: '/tools/caas' },
   { faas: '/tools/faas' },
   { fragment: '/fragments/' },
+  { youtube: 'https://www.youtube.com' },
+  { youtube: 'https://youtu.be' },
 ];
 const ENVS = {
   local: { name: 'local' },
@@ -254,7 +263,8 @@ export function decorateAutoBlock(a) {
         a.dataset.modalPath = url.pathname;
         a.dataset.modalHash = url.hash;
         a.href = url.hash;
-        return false;
+        a.className = 'modal link-block';
+        return true;
       }
       a.className = `${key} link-block`;
       return true;
@@ -449,6 +459,8 @@ export function parseEncodedConfig(encodedConfig) {
   }
   return null;
 }
+
+export const removeHash = (url) => url?.split('#')[0];
 
 export function getHashConfig() {
   const { hash } = window.location;
