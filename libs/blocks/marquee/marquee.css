@@ -8,6 +8,11 @@
   min-height: 360px;
 }
 
+.marquee.inline hr {
+  margin-top: var(--spacing-m);
+  margin-bottom: 0;
+}
+
 .marquee.light, .marquee.quiet, .marquee.inline {
   color: var(--text-color);
 }
