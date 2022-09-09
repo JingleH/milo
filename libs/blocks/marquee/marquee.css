@@ -337,10 +337,6 @@
     position: absolute;
   }
 
-  .marquee.large .foreground {
-    padding: var(--spacing-xxl) 0;
-  }
-
   .marquee.large .text {
     display: block;
   }
