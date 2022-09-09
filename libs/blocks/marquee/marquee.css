@@ -21,8 +21,12 @@
   justify-content: center;
 }
 
-.marquee .background .tablet,
-.marquee .background .desktop {
+.marquee .background .mobileOnly.tabletOnly {
+  display: block;
+}
+
+.marquee .background .tabletOnly,
+.marquee .background .desktopOnly {
   display: none;
 }
 
@@ -65,6 +69,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-m);
+  justify-content: space-around;
 }
 
 .marquee.small .foreground {
@@ -185,11 +190,11 @@
 }
 
 @media screen and (min-width: 600px) {
-  .marquee .background .mobile,
-  .marquee .background .desktop {
+  .marquee .background .mobileOnly,
+  .marquee .background .desktopOnly {
     display: none;
   }
-  .marquee .background .tablet {
+  .marquee .background .tabletOnly {
     display: block;
   }
 }
@@ -199,12 +204,13 @@
     min-height: 560px;
   }
 
-  .marquee .background .mobile,
-  .marquee .background .tablet {
+  .marquee .background .mobileOnly.tabletOnly,
+  .marquee .background .mobileOnly,
+  .marquee .background .tabletOnly {
     display: none;
   }
 
-  .marquee .background .desktop {
+  .marquee .background .desktopOnly {
     display: block;
   }
 
@@ -216,11 +222,22 @@
   }
 
   .marquee .foreground .text {
-    flex: 1 1 calc(var(--grid-column-width) * 5);
+    flex: 1 1 500px;
   }
 
   .marquee .foreground .image {
     flex: 1 1 600px;
+  }
+
+  .marquee.quiet.centered .foreground,
+  .marquee.inline.centered .foreground {
+    justify-content: center;
+  }
+
+  .marquee.quiet .foreground,
+  .marquee.inline .foreground,
+  .marquee.split .foreground {
+    justify-content: initial;
   }
 
   .marquee.quiet .foreground .text {
@@ -285,6 +302,7 @@
     display: flex;
     align-items: center;
   }
+
   .marquee.split .foreground.container .text {
     max-width: calc(50% - 32px);
   }
