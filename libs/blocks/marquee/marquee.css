@@ -116,12 +116,9 @@
   order: 1;
 }
 
-.marquee .text .heading-XL {
-  margin-bottom: var(--spacing-xs);
-}
-
+.marquee .text .heading-XL,
 .marquee .text .heading-XXL {
-  margin-bottom: var(--spacing-s);
+  margin-bottom: var(--spacing-xs);
 }
 
 .marquee .text p.icon-area {
