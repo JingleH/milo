@@ -18,6 +18,7 @@ import {
 
 const locales = {
   '': { ietf: 'en-US', tk: 'hah7vzn.css' },
+  ca: { ietf: 'en-CA', tk: 'hah7vzn.css' },
   de: { ietf: 'de-DE', tk: 'hah7vzn.css' },
   cn: { ietf: 'zh-CN', tk: 'tav4wnu' },
   kr: { ietf: 'ko-KR', tk: 'zfo3ouc' },

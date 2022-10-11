@@ -135,9 +135,13 @@ export function makeRelative(href) {
   const fixedHref = href.replace(/\u2013|\u2014/g, '--');
   const hosts = [`${PROJECT_NAME}.hlx.page`, `${PROJECT_NAME}.hlx.live`, ...PRODUCTION_DOMAINS];
   const url = new URL(fixedHref);
+  const { locale } = getConfig();
+  let prefix = url.hash === '#dnt' ? '' : locale.prefix;
+  prefix = url.pathname.startsWith(prefix) ? '' : prefix;
+  const hash = url.hash === '#dnt' ? '' : url.hash;
   const relative = hosts.some((host) => url.hostname.includes(host))
     || url.hostname === window.location.hostname;
-  return relative ? `${url.pathname}${url.search}${url.hash}` : href;
+  return relative ? `${prefix}${url.pathname}${url.search}${hash}` : href;
 }
 
 export function loadStyle(href, callback) {
