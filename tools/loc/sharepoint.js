@@ -12,7 +12,6 @@
 
 import { asyncForEach } from './utils.js';
 import getConfig from './config.js';
-import { PublicClientApplication } from './lib/msal-browser.js';
 
 let accessToken;
 const BATCH_REQUEST_LIMIT = 20;
@@ -21,7 +20,7 @@ const getAccessToken = () => accessToken;
 
 async function connect(callback) {
   const { sp } = await getConfig();
-  const publicClientApplication = new PublicClientApplication(sp.clientApp);
+  const publicClientApplication = new msal.PublicClientApplication(sp.clientApp);
   let account = publicClientApplication.getAllAccounts()[0];
   if (!account) {
     await publicClientApplication.loginPopup(sp.login);
@@ -180,9 +179,10 @@ async function getFile(project, url) {
   return undefined;
 }
 
-async function getFiles1(project, tasks) {
+async function getFiles(project, locale) {
+  validateConnection();
   const files = [];
-  await asyncForEach(tasks, async (task) => {
+  await asyncForEach(project[locale], async (task) => {
     const url = task.URL;
     const file = await getFile(project, url);
     if (file) {
@@ -191,12 +191,8 @@ async function getFiles1(project, tasks) {
       files.push(file);
     }
   });
-  return files;
-}
 
-async function getFiles(project, locale) {
-  validateConnection();
-  return getFiles1(project[locale]);
+  return files;
 }
 
 async function createFolder(folder) {
@@ -453,13 +449,30 @@ async function saveFileAndUpdateMetadata(srcPath, file, dest) {
   throw new Error(`Could not upload file ${dest}`);
 }
 
-export { connect,
+async function updateExcelTable(excelPath, tableName, values) {
+  const { sp } = await getConfig();
+
+  const options = getAuthorizedRequestOption({ method: sp.api.directory.create.method });
+  options.body = JSON.stringify({ values });
+  options.method = sp.api.excel.update.method;
+
+  const res = await fetch(
+    `${sp.api.excel.update.baseURI}${excelPath}:/workbook/tables/${tableName}/rows/add`,
+    options,
+  );
+  if (res.ok) {
+    return res.json();
+  }
+  throw new Error(`Failed to update excel sheet ${excelPath} table ${tableName}.`);
+}
+
+export {
+  connect,
   copyFile,
   copyFileAndUpdateMetadata,
   getAccessToken,
   getAuthorizedRequestOption,
   getFiles,
-  getFiles1,
   getFileVersionInfo,
   getFileMetadata,
   getSpFiles,
@@ -467,4 +480,6 @@ export { connect,
   getVersionOfFile,
   saveFile,
   saveFileAndUpdateMetadata,
-  updateProjectWithSpStatus };
+  updateExcelTable,
+  updateProjectWithSpStatus,
+};
