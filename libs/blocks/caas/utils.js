@@ -249,6 +249,7 @@ export const getConfig = async (state, strs = {}) => {
       },
       button: { style: state.collectionBtnStyle },
       resultsPerPage: state.resultsPerPage,
+      // TODO: endpoint
       endpoint: `https://${
         state.endpoint
       }${targetActivity}?originSelection=${originSelection}&contentTypeTags=${state.contentTypeTags.join(
