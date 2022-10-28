@@ -7,6 +7,6 @@ export default function useGetData() {
   setTimeout(() => {
     setData(results);
     setIsLoading(false);
-  }, 1);
+  }, 2000);
   return { isLoading, data };
 }
