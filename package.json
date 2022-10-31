@@ -44,6 +44,7 @@
     "stylelint": "14.6.0",
     "stylelint-config-prettier": "9.0.3",
     "stylelint-config-standard": "25.0.0",
-    "microbundle": "0.15.1"
+    "microbundle": "0.15.1",
+    "eslint-plugin-react-hooks": "^4.6.0"
   }
 }
