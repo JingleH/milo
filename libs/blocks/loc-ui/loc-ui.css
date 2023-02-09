@@ -1,0 +1,392 @@
+:root {
+  --main-background-color: white;
+  --main-text-color: #676767;
+  --main-blue: #25a1fc;
+  --main-red: #ff6850;
+  --main-green: #69c973;
+  --main-yellow: #ffb400;
+  --secondary-background-color: #EDEDED;
+  --selected-background-color: #A3A3A3;
+  --selected-text-color: white;
+}
+
+.nala-dashboard {
+  background-color: var(--main-background-color);
+  color: var(--main-text-color);
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+.paper {
+  /* background-color: pink; */
+  padding: 5em;
+}
+
+.summary-big-num .title {
+  font-size: 300%;
+  line-height: 150%;
+}
+
+.summary-big-num .num {
+  font-size: 200%;
+}
+
+
+.card {
+  background-color: var(--secondary-background-color);
+  padding: 3em;
+}
+
+.grid-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.whole-block {
+  margin-left: 5rem;
+  margin-right: 5rem;
+  min-width: 814px;
+}
+
+.grid-item {
+  flex-basis: 10%;
+}
+
+.grid-item2 {
+  flex-basis: calc(200% / 12);
+}
+
+.grid-item3 {
+  flex-basis: 25%;
+}
+
+.grid-item6 {
+  flex-basis: 50%;
+}
+
+.grid-item8 {
+  flex-basis: calc(800% / 12);
+}
+
+.grid-item10 {
+  flex-basis: calc(1000% / 12);
+}
+
+.clickable {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: inherit;
+}
+
+.blue {
+  color: var(--main-blue);
+}
+
+.red {
+  color: var(--main-red);
+}
+
+.green {
+  color: var(--main-green);
+}
+
+.yellow {
+  color : var(--main-yellow);
+}
+
+.mt1 {
+  margin-top: 1em;
+}
+
+.mt2 {
+  margin-top: 2em;
+}
+
+.mt3 {
+  margin-top: 3em;
+}
+
+.mr1 {
+  margin-right: 1em;
+}
+
+.mr2 {
+  margin-right: 2em;
+}
+
+.ml1 {
+  margin-left: 1em;
+}
+
+.mb1 {
+  margin-bottom: 1em;
+}
+
+.mb2 {
+  margin-bottom: 2em;
+}
+
+.mb5 {
+  margin-bottom: 5em;
+}
+
+.pl1 {
+  padding-left: 1em;
+}
+
+.pt1 {
+  padding-bottom: 1em;
+}
+
+.pb1 {
+  padding-top: 1em;
+}
+
+.p1 {
+  padding: 1em;
+}
+
+.button {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  display: inline-block;
+  border:none;
+  background-color: pink;
+  color: black;
+  border-radius: 15px;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.table-wrapper {
+  display: block;
+  max-height: 65vh;
+  padding: 1.5em;
+  overflow: auto;
+}
+
+.detail-table {
+  border-style: solid;
+  border-color: var(--selected-text-color);
+  border-width: 5px 0 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 80%;
+}
+
+.detail-row {
+  max-height: 6em;
+  border-width: 0 0 1px;
+  border-color: var(--selected-text-color);
+  border-style: solid;
+}
+
+.long-text-block {
+  overflow: auto;
+  max-height: 6em;
+  width: auto;
+}
+
+.table-data-cell {
+  padding: 1em;
+}
+
+/* .detail-row:nth-child(odd) {
+  background-color: var(--selected-text-alternative-color);
+} */
+
+.summary-card {
+  border: 2px;
+  border-color: var(--secondary-background-color);
+  border-style: solid;
+  border-radius: 1%;
+  padding: 1em;
+  width: 300px;
+  height:200px;
+}
+
+.summary-card .date {
+  font-weight: 100;
+  font-size:medium;
+}
+
+.summary-card .branch {
+  font-weight: 400;
+  font-size:medium;
+  width:200px;
+}
+
+.summary-card .status {
+  font-weight: 800;
+  font-size:large;
+  width: 200px;
+}
+
+.summary-card .cnt-percent {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+.summary-card .cnt-percent .percent {
+  font-weight: 500;
+  font-size: 2em;
+}
+
+.summary-card .cnt-percent .cnt {
+  font-weight: 800;
+  font-size: 5em;
+}
+
+.summary-card .cnt-total {
+  margin-top: 3px;
+  font-weight: 500;
+  font-size: 2.5em;
+}
+
+.dropdown {
+  text-align: left;
+}
+
+.dropdown .label {
+  font-weight: 500;
+  font-size: medium;
+}
+
+.dropdown .select {
+  color: var(--main-text-color);
+  background-color: var(--main-background-color);
+  width: 140px;
+  border: 2px;
+  border-color: grey;
+  border-style: solid;
+  padding: 5px 5px 5px 10px;
+}
+
+.dropdown-big {
+  position: relative;
+  right: 1em;
+  bottom: 1em;
+  text-align: center;
+}
+
+.dropdown-big .select {
+  color: var(--selected-text-color);
+  
+  /* background: linear-gradient(290deg, transparent 20px, var(--selected-background-color) 0); */
+  background-image: url('../../ui/img/chevron-up-down.svg');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  appearance: none;
+  background-color: var(--selected-background-color);
+  width: 180px;
+  padding: 10px 1em 10px 0;
+  font-size: 130%;
+  font-weight: bold;
+  text-align-last: center;
+}
+
+.detail-section-title-row {
+  margin-bottom: 1em;
+  font-weight: 800;
+}
+
+
+.unselected-table-row {
+  background-color: var(--secondary-background-color);
+  color: var(--main-text-color);
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.selected-table-row {
+  background-color: var(--selected-background-color);
+  color: var(--selected-text-color);
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.selected-background {
+  background-color: var(--selected-background-color);
+  color: var(--selected-text-color);
+}
+
+.search-bar {
+  width: calc(100% - 8px);
+}
+
+.text-input-filter {
+  margin-right: 1em;
+  width: auto;
+  max-width: 4em;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;
+  align-items: center;
+  position: relative;
+}
+
+.loader-container-small {
+  height: 100px;
+}
+
+.loader-container-big {
+  height: 400px;
+}
+
+.small-loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+.small-loader .blue {
+  border-color: var(--main-blue);
+}
+
+.toggle-button .on {
+  width: 90px;
+}
+
+.toggle-button .off {
+  width: 90px;
+}
