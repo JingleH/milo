@@ -8,56 +8,32 @@ import {
   stateLifecycle,
   transitions,
 } from './constants.js';
-
-// 3 states: item*loc progress state, displaying state, selected state
-
-// TODO: maintain a tree structure vs. flat array of objects?
-// FIXME: use initial value
-const initialDataState = contentItems.reduce(
-  (accItems, currItem) => ({
-    ...accItems,
-    [currItem]: locales.reduce(
-      (accLocs, currLoc) => ({ ...accLocs, [currLoc]: signal('initial') }),
-      {},
-    ),
-  }),
-  {},
-);
-function getInitialSelectionState() {
-  return contentItems.reduce(
-    (accItems, currItem) => ({
-      ...accItems,
-      [currItem]: locales.reduce(
-        (accLocs, currLoc) => ({ ...accLocs, [currLoc]: signal(false) }),
-        {},
-      ),
-    }),
-    {},
-  );
-}
-
-const selectionState = getInitialSelectionState();
-function clearSelections() {
-  Object.keys(selectionState).forEach((item) => {
-    Object.keys(selectionState[item]).forEach((loc) => {
-      selectionState[item][loc].value = false;
-    });
-  });
-}
-
-function selectionStateAnalyze(selected) {
-  const firstState = selected?.[0]?.state;
-  return {
-    isEmpty: selected.length === 0,
-    isConsistent: selected.every((s) => s.state === firstState),
-    consistentState: firstState,
-  };
-}
+import { escapeRegExp } from './utils.js';
+import {
+  searchItemOnInput,
+  searchItemState,
+  searchLocOnInput,
+  searchLocState,
+  selectionState,
+  state,
+  selectionStateAnalyze,
+  clearSelections,
+} from './TaskMatrixState.js';
 
 function TaskMatrix() {
-  const state = initialDataState;
+  let locRegex;
+  let itemRegex;
+  let localeCols = locales;
+  let filteredItems = contentItems;
+  if (searchItemState.value) {
+    itemRegex = new RegExp(escapeRegExp(searchItemState.value), 'i');
+    filteredItems = contentItems.filter((item) => itemRegex.test(item));
+  }
+  if (searchLocState.value) {
+    locRegex = new RegExp(escapeRegExp(searchLocState.value), 'i');
+    localeCols = locales.filter((locale) => locRegex.test(locale));
+  }
 
-  const localeCols = locales.map((locale) => locale);
   const selected = [];
   Object.keys(selectionState).forEach((item) => {
     Object.keys(selectionState[item]).forEach((loc) => {
@@ -94,11 +70,23 @@ function TaskMatrix() {
       { content: 'URL' },
       { content: 'Source' },
       { content: 'Language Store' },
-      ...localeCols.map((col) => ({ content: col })),
+      ...localeCols.map((loc) => ({
+        content: html`<div
+          onClick=${(e) => {
+            e.preventDefault();
+            Object.keys(selectionState).forEach((item) => {
+              selectionState[item][loc].value =
+                !selectionState[item][loc].value;
+            });
+          }}
+        >
+          ${loc}
+        </div>`,
+      })),
     ],
     TableHeaderCell,
   );
-  const rows = contentItems.map((item) => {
+  const rows = filteredItems.map((item) => {
     const sourceEdit = html`<button>Edit</button>`;
     const sourcePreview = html`<button>Preview</button>`;
     const sourceLive = html`<button>Live</button>`;
@@ -113,7 +101,19 @@ function TaskMatrix() {
     </div>`;
     return buildRow(
       [
-        { content: item },
+        {
+          content: html`<div
+            onClick=${(e) => {
+              e.preventDefault();
+              Object.keys(selectionState[item]).forEach((loc) => {
+                selectionState[item][loc].value =
+                  !selectionState[item][loc].value;
+              });
+            }}
+          >
+            ${item}
+          </div>`,
+        },
         { content: sourceButtons },
         { content: langStoreButtons },
         ...localeCols.map((loc) => {
@@ -138,6 +138,20 @@ function TaskMatrix() {
   });
   console.log('rendered task matrix');
   return html`<div>
+    <input
+      type="search"
+      placeholder="Item"
+      class="search-bar"
+      value=${searchItemState}
+      onInput=${searchItemOnInput}
+    />
+    <input
+      type="search"
+      placeholder="Loc"
+      class="search-bar"
+      value=${searchLocState}
+      onInput=${searchLocOnInput}
+    />
     ${actionButtons}
     <button
       disabled=${isEmpty}
