@@ -38,6 +38,7 @@ export function getInitialSelectionState() {
 export const selectionState = getInitialSelectionState();
 export const searchItemState = signal(null);
 export const searchLocState = signal(null);
+export const filterStatusState = signal(null);
 export const state = getInitialDataState();
 
 export function clearSelections() {

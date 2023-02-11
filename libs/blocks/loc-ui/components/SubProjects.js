@@ -12,20 +12,22 @@ function SubProjectCard({ loc }) {
 }
 
 function SubProjects() {
-  return html` <${GridContainer} spaceAround>
-    <${GridItem}>
-      <${SubProjectCard} loc=${'German'} />
-    </${GridItem}>
-    <${GridItem}>
-    <${SubProjectCard} loc=${'Spanish'} />
-    </${GridItem}>
-    <${GridItem}>
-    <${SubProjectCard} loc=${'French'} />
-    </${GridItem}>
-    <${GridItem}>
-    <${SubProjectCard} loc=${'French (AltLang)'} />
-    </${GridItem}>
-    </${GridContainer}
-  >`;
+  return html` <div class='mb5 mt3'>
+    <${GridContainer} spaceAround>
+      <${GridItem}>
+        <${SubProjectCard} loc=${'German'} />
+      </${GridItem}>
+      <${GridItem}>
+      <${SubProjectCard} loc=${'Spanish'} />
+      </${GridItem}>
+      <${GridItem}>
+      <${SubProjectCard} loc=${'French'} />
+      </${GridItem}>
+      <${GridItem}>
+      <${SubProjectCard} loc=${'French (AltLang)'} />
+      </${GridItem}>
+      </${GridContainer}>
+      </div>
+  `;
 }
 export default SubProjects;

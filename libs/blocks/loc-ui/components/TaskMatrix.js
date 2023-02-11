@@ -18,12 +18,14 @@ import {
   state,
   selectionStateAnalyze,
   clearSelections,
+  filterStatusState,
 } from './TaskMatrixState.js';
 
 function TaskMatrix() {
   let locRegex;
   let itemRegex;
-  let localeCols = locales;
+  let statusRegex;
+  let filteredLocs = locales;
   let filteredItems = contentItems;
   if (searchItemState.value) {
     itemRegex = new RegExp(escapeRegExp(searchItemState.value), 'i');
@@ -31,8 +33,23 @@ function TaskMatrix() {
   }
   if (searchLocState.value) {
     locRegex = new RegExp(escapeRegExp(searchLocState.value), 'i');
-    localeCols = locales.filter((locale) => locRegex.test(locale));
+    filteredLocs = locales.filter((locale) => locRegex.test(locale));
   }
+  // if (filterStatusState.value) {
+  //   statusRegex = new RegExp(escapeRegExp(filterStatusState.value), 'i');
+  //   const statusMatchingItems = [];
+  //   const statusMatchingLocs = [];
+  //   filteredItems.forEach((item) => {
+  //     filteredLocs.forEach((loc) => {
+  //       if (statusRegex.test(state[item][loc].value)) {
+  //         statusMatchingItems.push(item);
+  //         statusMatchingLocs.push(loc);
+  //       }
+  //     });
+  //   });
+  //   filteredItems = statusMatchingItems;
+  //   filteredLocs = statusMatchingLocs;
+  // }
 
   const selected = [];
   Object.keys(selectionState).forEach((item) => {
@@ -70,7 +87,7 @@ function TaskMatrix() {
       { content: 'URL' },
       { content: 'Source' },
       { content: 'Language Store' },
-      ...localeCols.map((loc) => ({
+      ...filteredLocs.map((loc) => ({
         content: html`<div
           onClick=${(e) => {
             e.preventDefault();
@@ -86,6 +103,33 @@ function TaskMatrix() {
     ],
     TableHeaderCell,
   );
+
+  const searchBars = html`<div>
+    <input
+      type="search"
+      placeholder="Item"
+      class="search-bar"
+      value=${searchItemState}
+      onInput=${searchItemOnInput}
+    />
+    <input
+      type="search"
+      placeholder="Loc"
+      class="search-bar"
+      value=${searchLocState}
+      onInput=${searchLocOnInput}
+    />
+    <input
+      type="search"
+      placeholder="Status"
+      class="search-bar"
+      value=${filterStatusState}
+      onInput=${(e) => {
+        e.preventDefault();
+      }}
+    />
+  </div>`;
+
   const rows = filteredItems.map((item) => {
     const sourceEdit = html`<button>Edit</button>`;
     const sourcePreview = html`<button>Preview</button>`;
@@ -116,7 +160,7 @@ function TaskMatrix() {
         },
         { content: sourceButtons },
         { content: langStoreButtons },
-        ...localeCols.map((loc) => {
+        ...filteredLocs.map((loc) => {
           const currState = state[item][loc];
           const currSelectionState = selectionState[item][loc];
           return {
@@ -127,8 +171,6 @@ function TaskMatrix() {
               }}
             >
               ${currState.value}
-              <button>edit</button>
-              <button>preview</button>
             </div>`,
           };
         }),
@@ -138,20 +180,6 @@ function TaskMatrix() {
   });
   console.log('rendered task matrix');
   return html`<div>
-    <input
-      type="search"
-      placeholder="Item"
-      class="search-bar"
-      value=${searchItemState}
-      onInput=${searchItemOnInput}
-    />
-    <input
-      type="search"
-      placeholder="Loc"
-      class="search-bar"
-      value=${searchLocState}
-      onInput=${searchLocOnInput}
-    />
     ${actionButtons}
     <button
       disabled=${isEmpty}
@@ -162,8 +190,9 @@ function TaskMatrix() {
     >
       clear selections
     </button>
+    ${searchBars}
     <div class="table-wrapper">
-      <table class="detail-table">
+      <table class="detail-table sticky-top sticky-left">
         ${headerRow} ${rows}
       </table>
     </div>

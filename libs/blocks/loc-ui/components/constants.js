@@ -59,10 +59,17 @@ export const stateLifecycle = {
   saved: [...always, 'rollout'],
   rolledout: [...always, 'rollout'],
 };
+const states = {
+  copied: 'copied',
+  glaasIP: 'glaasIP',
+  complete: 'glaasComplete',
+  saved: 'saved',
+  rolledout: 'rolledout',
+};
 export const transitions = {
-  copy: 'copied',
-  'send to glaas': 'glaasIP',
-  complete: 'glassComplete',
-  save: 'saved',
-  rollout: 'rolledout',
+  copy: states.copied,
+  'send to glaas': states.glaasIP,
+  complete: states.glassComplete,
+  save: states.saved,
+  rollout: states.rolledout,
 };

@@ -391,3 +391,22 @@
 .toggle-button .off {
   width: 90px;
 }
+
+.sticky-top {
+  position: relative;
+  text-align: left;
+}
+
+.sticky-top-header {
+  position: sticky;
+  background: pink;
+  top: 0;
+  left: 0;
+}
+
+.sticky-left-col {
+  position: sticky;
+  background: pink;
+  top: 0;
+  left: 0;
+}
