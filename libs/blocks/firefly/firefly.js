@@ -114,7 +114,7 @@ export default function init(el) {
   };
 
   form.appendChild(searchBar);
-  const searchButton = createTag('button', { type: 'submit' }, 'Search');
+  const searchButton = createTag('a', { class: 'con-button blue button-xl button-justified-mobile', href: '#' }, 'Generate');
   form.appendChild(searchButton);
   searchButton.addEventListener('click', searchHandler);
   form.append(suggestionsList);
