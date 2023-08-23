@@ -67,7 +67,7 @@ async function searchAndReplaceImg(query, el) {
 export default function init(el) {
   const placeholderDiv = el.querySelector('div > div');
   placeholderDiv.remove();
-  const form = createTag('form');
+  const form = createTag('form', { class: 'firefly-search-form' });
   const searchBar = createTag('input', {
     type: 'text',
     placeholder: placeholderDiv.textContent,
@@ -114,7 +114,7 @@ export default function init(el) {
   };
 
   form.appendChild(searchBar);
-  const searchButton = createTag('a', { class: 'con-button blue button-xl button-justified-mobile', href: '#' }, 'Generate');
+  const searchButton = createTag('a', { class: 'con-button blue button-xl button-justified-mobile firefly-submit', href: '#' }, 'Generate');
   form.appendChild(searchButton);
   searchButton.addEventListener('click', searchHandler);
   form.append(suggestionsList);

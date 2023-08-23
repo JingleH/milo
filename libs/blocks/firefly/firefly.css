@@ -8,6 +8,20 @@
   height: 100%;
 }
 
+.firefly {
+  position: absolute;
+  transform: translate(134%, -104%);
+}
+
+.firefly-submit {
+  position: absolute;
+  transform: translate(-114%, 21%);
+}
+
+.marquee .background {
+  opacity: 0.8;
+}
+
 input {
   width: 600px;
   padding: 7px 40px 7px 10px;
@@ -16,9 +30,9 @@ input {
   font-size: 20px;
   font-weight: 300;
   border-radius: 25px;
-  background-color: transparent;
+  background-color: white;
   box-shadow: 2px 6px 10px #443b3b;
   margin-right: 12px;
-  block-size: 50px;
+  block-size: 65px;
   font-style: italic;
 }
