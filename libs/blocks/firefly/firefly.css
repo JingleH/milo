@@ -1,27 +1,5 @@
-.flex-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.firefly {
-  position: absolute;
-  transform: translate(134%, -104%);
-}
-
-.firefly-submit {
-  position: absolute;
-  transform: translate(-114%, 21%);
-}
-
-.marquee .background {
-  opacity: 0.8;
-}
-
 input {
-  width: 600px;
+  width: 100%;
   padding: 7px 40px 7px 10px;
   border: 3px solid #d3d3d3;
   flex-grow: 1;
@@ -36,18 +14,19 @@ input {
   color: #5f5f5f;
 }
 
+.firefly-submit {
+  width: 130px;
+  float: right;
+  transform: translate(-10%, -120%);
+}
+
 a.firefly-submit {
-  min-width: 126px;
+  min-width: 100px;
   text-align: center;
 }
 
-a.firefly-submit.disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
 .loader-progress-bar {
-  width: 544px;
+  width: 100%;
   border-radius: 12px;
   visibility: hidden;
 }
@@ -56,19 +35,86 @@ a.firefly-submit.disabled {
   visibility: visible;
 }
 
-.loader-progress-bar > div {
+.loader-progress-bar>div {
   background: transparent linear-gradient(73deg, var(--color-info-accent) 0%, var(--color-accent) 100%) 0% 0% no-repeat padding-box;
   height: 12px;
   border-radius: 4px;
   width: 0%;
 }
 
-.marquee picture {
-  opacity: 1;
-  transition: opacity 0.5s ease-in;
-}
+@media screen and (min-width: 600px) {
+  .flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 
-.marquee picture.transitioning {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
+  .firefly {
+    position: absolute;
+    transform: translate(134%, -104%);
+  }
+
+  .firefly-submit {
+    position: absolute;
+    transform: translate(-114%, 21%);
+  }
+
+  .marquee .background {
+    opacity: 0.8;
+  }
+
+  input {
+    width: 600px;
+    padding: 7px 40px 7px 10px;
+    border: 3px solid #d3d3d3;
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: 300;
+    border-radius: 50px;
+    background-color: white;
+    box-shadow: 2px 6px 10px #443b3b;
+    margin-right: 12px;
+    block-size: 65px;
+    font-style: italic;
+    color: #5f5f5f;
+  }
+
+  a.firefly-submit {
+    min-width: 126px;
+    text-align: center;
+  }
+
+  a.firefly-submit.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .loader-progress-bar {
+    width: 544px;
+    border-radius: 12px;
+    visibility: hidden;
+  }
+
+  .loader-progress-bar.display {
+    visibility: visible;
+  }
+
+  .loader-progress-bar>div {
+    background: transparent linear-gradient(73deg, var(--color-info-accent) 0%, var(--color-accent) 100%) 0% 0% no-repeat padding-box;
+    height: 12px;
+    border-radius: 4px;
+    width: 0%;
+  }
+
+  .marquee picture {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+  }
+
+  .marquee picture.transitioning {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
 }
