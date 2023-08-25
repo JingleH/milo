@@ -72,13 +72,13 @@ async function fetchCompletions(query) {
       headers,
       body: JSON.stringify(bodyParameters),
     });
-    console.log({response});
+    // console.log({response});
 
     const data = await response.json();
     const completions = data.choices.map((choice) =>
       choice?.message?.content?.replace(/\.$/, '')
     );
-    console.log({ completions });
+    // console.log({ completions });
     return completions;
   } catch(err) {
     console.error(err);
