@@ -30,7 +30,7 @@ export const backupPrompts = [
 
 const prep = `I will give you a list of keywords. Try turning it into a better prompt for GenAI image generation. Use as many provided keywords as possible. Do not include double quotes. Limit the whole thing in ${wordLengthLimit} words: `;
 const model = 'gpt-3.5-turbo';
-const COMPLETION_CNT = 3; // too many, me brokey
+const COMPLETION_CNT = 4; // too many, me brokey
 
 function pickNRandomElements(n, arr) {
   if (n > arr.length) throw new Error('n is too large');
@@ -51,7 +51,7 @@ function pickNRandomElements(n, arr) {
 async function fetchCompletions(query) {
   try {
     const { searchParams } = new URL(window.location.href);
-    if (['y', 'Y'].includes(searchParams.get(useFake))) return backupPrompts;
+    if (['y', 'Y'].includes(searchParams.get('useFake'))) return backupPrompts;
     const messages = [
       {
         role: 'user',
@@ -72,6 +72,7 @@ async function fetchCompletions(query) {
       headers,
       body: JSON.stringify(bodyParameters),
     });
+    console.log({response});
 
     const data = await response.json();
     const completions = data.choices.map((choice) =>
@@ -79,7 +80,8 @@ async function fetchCompletions(query) {
     );
     console.log({ completions });
     return completions;
-  } catch {
+  } catch(err) {
+    console.error(err);
     return backupPrompts;
   }
 }
