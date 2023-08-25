@@ -1,66 +1,16 @@
-import { memoize, throttle, debounce } from './utils.js';
-
-const url = 'https://adobesearch-atc.adobe.io/uss/v3/autocomplete';
-const experienceId = 'default-templates-autocomplete-v1';
-const scopeEntities = ['HzTemplate'];
-const emptyRes = { queryResults: [{ items: [] }] };
-
-async function fetchAPI({ limit = 5, textQuery, locale = 'en-US' }) {
-  if (!textQuery) {
-    return [];
-  }
-
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'x-api-key': atob('cHJvamVjdHhfbWFya2V0aW5nX3dlYg=='),
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      experienceId,
-      textQuery,
-      locale,
-      queries: [
-        {
-          limit,
-          id: experienceId,
-          scope: {
-            entities: scopeEntities,
-          },
-        },
-      ],
-    }),
-  })
-    .then((response) => response.json())
-    .then((response) => (response.queryResults?.[0]?.items ? response : emptyRes))
-    .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.error('Autocomplete API Error: ', err);
-      return emptyRes;
-    });
-  return res.queryResults[0].items;
-}
-
-const memoizedFetchAPI = memoize(fetchAPI, {
-  key: (options) => options.textQuery,
-  ttl: 30 * 1000,
-});
+import { throttle, debounce } from './utils.js';
 
 export default function useInputAutocomplete(
+  fetchFunc,
   updateUIWithSuggestions,
-  { throttleDelay = 300, debounceDelay = 500, limit = 5 } = {},
+  { throttleDelay = 300, debounceDelay = 500, limit = 5, useFake = false, throttleThreshold = 2 } = {},
 ) {
   const state = { query: '', waitingFor: '' };
-
   const fetchAndUpdateUI = async () => {
     const currentSearch = state.query;
     state.waitingFor = currentSearch;
-    const suggestions = await memoizedFetchAPI({
-      textQuery: currentSearch,
-      limit,
-      locale: 'en-US',
-    });
-    console.log(suggestions);
+    const suggestions = await fetchFunc(currentSearch, limit, useFake);
+    console.log({suggestions});
     if (state.waitingFor === currentSearch) {
       updateUIWithSuggestions(suggestions);
     }
@@ -71,11 +21,10 @@ export default function useInputAutocomplete(
 
   const inputHandler = (e) => {
     state.query = e.target.value;
-    console.log(state.query);
-    if (state.query.length < 4 || state.query.endsWith(' ')) {
-      throttledFetchAndUpdateUI();
+    if (state.query.length < throttleThreshold || state.query.endsWith(' ')) {
+      if (throttleDelay > 0) throttledFetchAndUpdateUI();
     } else {
-      debouncedFetchAndUpdateUI();
+      if (debounceDelay > 0) debouncedFetchAndUpdateUI();
     }
   };
   return { inputHandler };
