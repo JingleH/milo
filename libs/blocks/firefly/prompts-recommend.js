@@ -51,7 +51,7 @@ function pickNRandomElements(n, arr) {
 async function fetchCompletions(query) {
   try {
     const { searchParams } = new URL(window.location.href);
-    if (searchParams.useFake == 'Y') return backupPrompts;
+    if (['y', 'Y'].includes(searchParams.get(useFake))) return backupPrompts;
     const messages = [
       {
         role: 'user',

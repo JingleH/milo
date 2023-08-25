@@ -254,7 +254,7 @@ function searchBarInputHandler({ searchBar, cta }) {
 export default function init(el) {
   const placeholderDiv = el.querySelector('div > div');
   placeholderDiv.remove();
-  const form = createTag('form', { class: 'firefly-search-form' });
+  const form = createTag('div', { class: 'firefly-search-form' });
   const searchBar = createTag('input', {
     class: 'search-bar',
     type: 'text',
