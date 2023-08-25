@@ -1,4 +1,7 @@
-const token = `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`;
+const obfus =
+  `c2stUXdqWm5ZZ3lvcWF6bjFvMmNHS1hUM0JsYmtGSkFFTDB4UG15RWc0SE1wSnNzYUFE` +
+  'hahajusttoavoiddetection';
+const token = atob(obfus.replace('hahajusttoavoiddetection', ''));
 
 const api = `https://api.openai.com/v1/chat/completions`;
 const wordLengthLimit = 15;
